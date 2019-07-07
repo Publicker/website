@@ -1,5 +1,7 @@
 ---
-version: 0.0.1-alpha.4
+title: v0.0.1-alpha.4
+description: "April 04, 2019"
+titleBorder: true
 date: 2019-04-07
 build_type: canary
 slug: 0.0.1-alpha.4

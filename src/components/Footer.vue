@@ -20,7 +20,7 @@
 				<a :href="'https://github.com/gitthermal/thermal/issues/new/choose' + footerUrl" target="_blank" class="footer__navbar-item">
 					Feedback
 				</a>
-				<g-link to="/releases" class="footer__navbar-item">
+				<g-link :to="`/releases/${firstReleasesLink}`" class="footer__navbar-item">
 					Release notes
 				</g-link>
 				<!-- <div class="footer__navbar-item">
@@ -53,6 +53,7 @@
 <script>
 import Container from "../layouts/Container"
 import Logo from "./Logo"
+import ReleasesMenu from "../../data/releases-menu.json";
 
 export default {
 	name: "Footer",
@@ -61,6 +62,9 @@ export default {
 		Logo
 	},
 	computed: {
+		firstReleasesLink() {
+			return ReleasesMenu[0].topics[0].slug;;
+		},
 		footerUrl() {
 			return "?utm_source=website&utm_medium=footer"
 		}

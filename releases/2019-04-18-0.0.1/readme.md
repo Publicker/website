@@ -1,5 +1,7 @@
 ---
-version: 0.0.1
+title: v0.0.1
+description: "April 18, 2019"
+titleBorder: true
 date: 2019-04-18
 build_type: stable
 slug: 0.0.1

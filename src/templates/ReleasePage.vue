@@ -1,61 +1,74 @@
 <template>
-	<Layout :headerSize="1">
-		<div class="releases__content">
-			<Container width="600">
-				<g-link to="/releases" class="releases__content-back">
-					<LeftArrow /> Back
-				</g-link>
-				<PostLayout :editOnGH="false">
-					<div v-html="$page.releases.content"></div>
-				</PostLayout>
-			</Container>
+	<layout :headerSize="1" :footer="false">
+		<div style="display: flex; flex-direction: row;">
+			<sidebar type="releases" :menu="releasesmenu" />
+			<div class="releases__content">
+				<div class="releases__content-container">
+					<post-layout
+						:title="$page.releases.title"
+						:description="$page.releases.description"
+						:titleBorder="$page.releases.titleBorder"
+						:content="$page.releases.content"
+					/>
+				</div>
+			</div>
 		</div>
-	</Layout>
+	</layout>
 </template>
 
+<script>
+import ReleasesMenu from "../../data/releases-menu.json";
+import Sidebar from "../components/Sidebar";
+import PostLayout from "../layouts/Post";
+
+export default {
+	name: "ReleasesPage",
+	metaInfo() {
+		return {
+			title: this.$page.releases.title,
+			meta: [
+				{
+					key: "description",
+					name: "description",
+					content: this.$page.releases.description
+				}
+			]
+		};
+	},
+	components: {
+		Sidebar,
+		PostLayout
+	},
+	computed: {
+		releasesmenu() {
+			return ReleasesMenu;
+		}
+	}
+};
+</script>
+
 <page-query>
-query releasePage ($path: String!) {
+query ReleasePage ($path: String!) {
 	releases: releasePage (path: $path) {
-		date
-		version
-		build_type
+		title
+		description
+		titleBorder
 		content
 	}
 }
 </page-query>
 
-<script>
-import Container from "../layouts/Container";
-import PostLayout from "../layouts/Post";
-import LeftArrow from "../../static/images/icon/arrow-left.svg"
-
-export default {
-	components: {
-		Container,
-		PostLayout,
-		LeftArrow
-	}
-};
-</script>
-
 <style lang='sass'>
-.releases__content
-	margin-top: 4rem
+.releases
+	&__content
+		padding-top: 2rem
+		padding-bottom: 2rem
+		flex: 1
 
-	&-back
-		display: inline-flex
-		flex-direction: row
-		align-items: center
-		margin-bottom: 2rem
-		fill: white
-		color: white
-		background-color: #00ADB5
-		padding: 5px 10px
-		border-radius: 50px
-		font-size: .8755rem
-
-		svg
-			margin-right: 5px
-			width: 18px
-			height: 18px
+		&-container
+			max-width: 760px
+			margin-left: auto
+			margin-right: auto
+			padding-left: 20px
+			padding-right: 20px
 </style>
